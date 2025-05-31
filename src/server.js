@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
 import { environmentVariables } from "./environments/environmentAccess.js";
 import app from "./app.js";
+import path from "path";
+import dotenv from "dotenv";
+const dotenvFilePath = path.join(process.cwd(), ".env");
+dotenv.config({
+  path: dotenvFilePath,
+});
 
 (async () => {
   const version = environmentVariables.version;
@@ -11,7 +17,7 @@ import app from "./app.js";
     version !== "production" &&
       (await mongoose.connect("mongodb://localhost:27017/viral-vabi"));
     console.log(`Database is connected successfully!`);
-    app.listen(environmentVariables.default_port, () => {
+    app.listen(process.env.PORT || 4000, () => {
       console.log(
         `The server is running on port ${environmentVariables.default_port}`
       );

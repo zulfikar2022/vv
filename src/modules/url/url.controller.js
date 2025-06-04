@@ -4,6 +4,7 @@ import { sendSuccessResponse } from "../../utilities/customSuccessResponse.js";
 import { User } from "../user/user.model.js";
 import { Url } from "./url.model.js";
 import { urlValidation } from "./url.validation.js";
+import path from "path";
 
 const getAllUrlsOfUser = async (req, res) => {
   const { user } = req?.params;
@@ -50,7 +51,7 @@ const createUrlForUser = async (req, res) => {
     // finding the user intended to create url
     const { total_url, isPaid } = req.urlUser;
     if (!isPaid && total_url >= environmentVariables.free_url_limit) {
-      sendErrorResponse(res, 500, "You have reached the free plan. Buy now.");
+      sendErrorResponse(res, 500, "You have reached the free plan.");
       return;
     }
     // get the last entry of the urls collection using Url model
@@ -88,7 +89,38 @@ const createUrlForUser = async (req, res) => {
   }
 };
 
-const updateUrlForUser = async (req, res) => {};
+const updateUrlForUser = async (req, res) => {
+  const { user, url } = req?.params;
+
+  const validatedUrl = urlValidation.createUrlValidation.safeParse(req.body);
+  if (!validatedUrl.success) {
+    sendErrorResponse(
+      res,
+      400,
+      validatedUrl?.error?.errors || "Invalid URL data provided"
+    );
+    return;
+  }
+  const { actual_url } = validatedUrl.data;
+
+  try {
+    const targetUrl = await Url.findById(url);
+    if (targetUrl.isDeleted) {
+      sendErrorResponse(res, 400, "URL is already deleted");
+      return;
+    }
+    if (targetUrl.user_id.toString() !== req.urlUser._id.toString()) {
+      sendErrorResponse(res, 400, "You are not the owner of that url.");
+      return;
+    }
+    targetUrl.actual_url = actual_url;
+    const changedUrl = await targetUrl.save();
+    sendSuccessResponse(res, 200, "URL updated successfully", changedUrl);
+  } catch (error) {
+    sendErrorResponse(res, 400, error?.message || "Failed to update URL");
+  }
+};
+
 const deleteUrlForUser = async (req, res) => {
   const { user, url } = req?.params;
   try {
@@ -118,10 +150,41 @@ const deleteUrlForUser = async (req, res) => {
   }
 };
 
+const verifyUser = async (req, res) => {
+  const { user } = req.params;
+
+  const intendedUser = await User.findById(user);
+  if (!intendedUser) {
+    return res.sendFile(
+      path.join(
+        process.join(),
+        "src",
+        "errors",
+        "auth-errors",
+        "user-does-not-exist.html"
+      )
+    );
+  }
+
+  if (intendedUser?.isActivated) {
+    return res.sendFile(
+      path.join(
+        process.join(),
+        "src",
+        "errors",
+        "auth-errors",
+        "user-already-verified.html"
+      )
+    );
+  }
+  //TODO: check the time the user created(created_at) and the time when user tries to verify their account and there gap in hours. If the gap is more than 24 hours then then show the user verification link expired page.
+};
+
 export const urlControllers = {
   getAllUrlsOfUser,
   getSpecificUrlOfUser,
   createUrlForUser,
   updateUrlForUser,
   deleteUrlForUser,
+  verifyUser,
 };

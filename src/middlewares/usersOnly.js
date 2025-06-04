@@ -19,8 +19,17 @@ export const usersOnly = async (req, res, next) => {
       return;
     }
 
-    jwt.verify(authorization, environmentVariables.jwt_secret);
+    const verifiedData = jwt.verify(
+      authorization,
+      environmentVariables.jwt_secret
+    );
 
+    //TODO: have to implement logic so that a user cannot change others data using his/her own token and others _id. to implement this I will match user and verifiedData user_id is equal or not
+
+    if (verifiedData.user_id !== user) {
+      sendErrorResponse(res, 403, "Forbidden: User ID mismatch");
+      return;
+    }
     if (!urlUser.isActivated || urlUser.isBlocked || urlUser.isDeleted) {
       sendErrorResponse(
         res,

@@ -11,7 +11,9 @@ router.get("/:user/urls/:url", usersOnly, urlControllers.getSpecificUrlOfUser); 
 
 router.post("/:user/urls", usersOnly, urlControllers.createUrlForUser); // DONE
 
-// router.put("/:user/urls/:url", usersOnly, urlControllers.updateUrlForUser);
-router.delete("/:user/urls/:url", usersOnly, urlControllers.deleteUrlForUser);
+router.put("/:user/urls/:url", usersOnly, urlControllers.updateUrlForUser);
+router.delete("/:user/urls/:url", usersOnly, urlControllers.deleteUrlForUser); // DONE
+
+// router.get("/verification/:user");
 
 export const urlRoutes = router;

@@ -5,7 +5,6 @@ import { User } from "./user.model.js";
 import { userValidationSchema } from "./user.validation.js";
 
 const registerUser = async (req, res, next) => {
-  const { name, email, password } = req.body;
   const validatedData = userValidationSchema.createUserValidation.safeParse(
     req?.body
   );
@@ -18,12 +17,10 @@ const registerUser = async (req, res, next) => {
     return;
   }
   try {
-    // Here you would typically check if the user already exists in the database
+    const { name, email, password } = req.body;
+
     const user = await User.findOne({
       email,
-      isDeleted: false,
-      isActivated: true,
-      isBlocked: false,
     });
 
     if (user) {
@@ -38,7 +35,6 @@ const registerUser = async (req, res, next) => {
     // send a success response
     sendSuccessResponse(res, 201, "User registered successfully", {
       user: {
-        id: newUser._id,
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
@@ -52,7 +48,6 @@ const registerUser = async (req, res, next) => {
 };
 
 const loginUser = async (req, res, next) => {
-  const { email, password } = req.body;
   const validatedData = userValidationSchema.loginUserValidation.safeParse(
     req?.body
   );
@@ -64,18 +59,19 @@ const loginUser = async (req, res, next) => {
     );
   }
   try {
+    const { email, password } = req.body;
     // Here you would typically check if the user exists in the database
-    const user = await User.find({ email }).select("+password");
+    const user = await User.findOne({ email }).select("+password");
 
-    if (!user || user.length === 0) {
+    if (!user) {
       return sendErrorResponse(res, 400, "User does not exist with this email");
     }
     // Check if the password matches
-    if (password !== user[0].password) {
+    if (password !== user.password) {
       return sendErrorResponse(res, 400, "Incorrect password");
     }
     // Generate a token for the user
-    const token = tokenGenerator(user[0]._id, user[0].email, user[0].name);
+    const token = tokenGenerator(user._id, user.email, user.name);
     // send a success response
     sendSuccessResponse(res, 200, "User logged in successfully", {
       user: {
@@ -93,6 +89,7 @@ const loginUser = async (req, res, next) => {
 };
 
 const getMe = async (req, res, next) => {
+  console.log("getMe called");
   const { user } = req.params;
   try {
     // Here you would typically fetch the user from the database

@@ -151,33 +151,52 @@ const deleteUrlForUser = async (req, res) => {
 };
 
 const verifyUser = async (req, res) => {
-  const { user } = req.params;
+  try {
+    const { user } = req.params;
 
-  const intendedUser = await User.findById(user);
-  if (!intendedUser) {
-    return res.sendFile(
-      path.join(
-        process.join(),
-        "src",
-        "errors",
-        "auth-errors",
-        "user-does-not-exist.html"
-      )
-    );
-  }
+    const intendedUser = await User.findById(user);
+    if (!intendedUser) {
+      return res.sendFile(
+        path.join(
+          process.cwd(),
+          "src",
+          "errors",
+          "auth-errors",
+          "user-does-not-exist.html"
+        )
+      );
+    }
 
-  if (intendedUser?.isActivated) {
-    return res.sendFile(
-      path.join(
-        process.join(),
-        "src",
-        "errors",
-        "auth-errors",
-        "user-already-verified.html"
-      )
-    );
+    if (intendedUser?.isActivated) {
+      return res.sendFile(
+        path.join(
+          process.cwd(),
+          "src",
+          "errors",
+          "auth-errors",
+          "user-already-verified.html"
+        )
+      );
+    }
+
+    const mongoTime = new Date(intendedUser.createdAt);
+    const now = new Date();
+    const timeDifference = now - mongoTime;
+    if (timeDifference >= 86400000) {
+      // 24 hours in milliseconds
+      return res.sendFile(
+        path.join(
+          process.cwd(),
+          "src",
+          "errors",
+          "auth-errors",
+          "user-verification-link-expired.html"
+        )
+      );
+    }
+  } catch (error) {
+    return res.sendFile(path.join(process.cwd(), "src", "errors", "404.html"));
   }
-  //TODO: check the time the user created(created_at) and the time when user tries to verify their account and there gap in hours. If the gap is more than 24 hours then then show the user verification link expired page.
 };
 
 export const urlControllers = {

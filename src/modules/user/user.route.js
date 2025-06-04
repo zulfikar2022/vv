@@ -7,5 +7,5 @@ const router = express.Router();
 router.post("/register", userControllers.registerUser);
 
 router.post("/login", userControllers.loginUser);
-// router.get("/getme/:user", usersOnly, userControllers.getMe);
+router.get("/getme/:user", usersOnly, userControllers.getMe);
 export const userRoute = router;

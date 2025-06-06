@@ -16,4 +16,8 @@ export const environmentVariables = {
   paid_url_limit: process.env.PAID_URL_LIMIT,
   base_url_local: process.env.BASE_URL_LOCAL,
   base_url_prod: process.env.BASE_URL_PROD,
+  smtp_host: process.env.SMTP_HOST,
+  smtp_port: process.env.SMTP_PORT,
+  smtp_user: process.env.SMTP_USER,
+  smtp_password: process.env.SMTP_PASSWORD,
 };

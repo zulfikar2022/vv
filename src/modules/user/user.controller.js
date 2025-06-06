@@ -1,5 +1,6 @@
 import { sendErrorResponse } from "../../utilities/customErrorResponse.js";
 import { sendSuccessResponse } from "../../utilities/customSuccessResponse.js";
+import { sendVerificationEmail } from "../../utilities/mail/mailer.js";
 import { tokenGenerator } from "../../utilities/tokenGenerator.js";
 import { User } from "./user.model.js";
 import { userValidationSchema } from "./user.validation.js";
@@ -41,6 +42,7 @@ const registerUser = async (req, res, next) => {
         photoUrl: newUser.photoUrl,
       },
     });
+    await sendVerificationEmail(newUser.email, newUser._id);
   } catch (error) {
     sendErrorResponse(res, 500, error?.message || "Internal server error");
     return;
@@ -69,6 +71,13 @@ const loginUser = async (req, res, next) => {
     // Check if the password matches
     if (password !== user.password) {
       return sendErrorResponse(res, 400, "Incorrect password");
+    }
+    if (!user.isActivated || user.isDeleted || user.isBlocked) {
+      return sendErrorResponse(
+        res,
+        403,
+        "User account is not active or blocked"
+      );
     }
     // Generate a token for the user
     const token = tokenGenerator(user._id, user.email, user.name);

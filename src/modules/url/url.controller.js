@@ -151,6 +151,7 @@ const deleteUrlForUser = async (req, res) => {
 };
 
 const verifyUser = async (req, res) => {
+  console.log("Verifying user...");
   try {
     const { user } = req.params;
 
@@ -194,6 +195,12 @@ const verifyUser = async (req, res) => {
         )
       );
     }
+
+    intendedUser.isActivated = true;
+    await intendedUser.save();
+    return res.sendFile(
+      path.join(process.cwd(), "src", "web", "success", "user-verified.html")
+    );
   } catch (error) {
     return res.sendFile(path.join(process.cwd(), "src", "errors", "404.html"));
   }

@@ -5,12 +5,21 @@ import { sendErrorResponse } from "./utilities/customErrorResponse.js";
 import path from "path";
 import { Url } from "./modules/url/url.model.js";
 import { User } from "./modules/user/user.model.js";
+import cookieParser from "cookie-parser";
 
 // creating an express app
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; connect-src 'self' https://www.viralvabi.com;"
+  );
+  next();
+});
 app.use("/", router);
 
 // creating a route not found middleware

@@ -1,3 +1,4 @@
+import { environmentVariables } from "../../environments/environmentAccess.js";
 import { sendErrorResponse } from "../../utilities/customErrorResponse.js";
 import { sendSuccessResponse } from "../../utilities/customSuccessResponse.js";
 import { sendVerificationEmail } from "../../utilities/mail/mailer.js";
@@ -80,18 +81,29 @@ const loginUser = async (req, res, next) => {
       );
     }
     // Generate a token for the user
-    const token = tokenGenerator(user._id, user.email, user.name);
+    const token = tokenGenerator(user._id, user.email, user.name, user.role);
     // send a success response
-    sendSuccessResponse(res, 200, "User logged in successfully", {
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        photoUrl: user.photoUrl,
-      },
-      token,
-    });
+    res
+      .cookie("authorization", token, {
+        httpOnly: true,
+        secure: environmentVariables.version === "production", // send only over HTTPS in prod
+        sameSite: "strict", // restricts CSRF
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      })
+      .json({
+        success: true,
+        message: "User logged in successfully",
+        data: {
+          user: {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            photoUrl: user.photoUrl,
+          },
+          token,
+        },
+      });
   } catch (error) {
     sendErrorResponse(res, 500, error?.message || "Internal server error");
   }

@@ -6,7 +6,7 @@ import { User } from "../modules/user/user.model.js";
 
 export const usersOnly = async (req, res, next) => {
   const { user } = req?.params;
-  const { authorization } = req.headers;
+  const { authorization } = req.headers || req.cookies;
   if (!user || !authorization) {
     sendErrorResponse(res, 403, "Forbidden: User not authenticated");
     return;

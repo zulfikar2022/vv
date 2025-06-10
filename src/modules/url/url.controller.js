@@ -202,7 +202,7 @@ const verifyUser = async (req, res) => {
       path.join(process.cwd(), "src", "web", "success", "user-verified.html")
     );
   } catch (error) {
-    return res.sendFile(path.join(process.cwd(), "src", "errors", "404.html"));
+    return res.render("pages/404");
   }
 };
 

@@ -109,6 +109,20 @@ const loginUser = async (req, res, next) => {
   }
 };
 
+const logoutUser = async (req, res, next) => {
+  try {
+    res.clearCookie("authorization", {
+      httpOnly: true,
+      secure: environmentVariables.version === "production",
+      sameSite: "strict",
+    });
+    return sendSuccessResponse(res, 200, "User logged out successfully");
+  } catch (error) {
+    sendErrorResponse(res, 500, error?.message || "Internal server error");
+    return;
+  }
+};
+
 const getMe = async (req, res, next) => {
   console.log("getMe called");
   const { user } = req.params;
@@ -137,5 +151,6 @@ const getMe = async (req, res, next) => {
 export const userControllers = {
   registerUser,
   loginUser,
+  logoutUser,
   getMe,
 };

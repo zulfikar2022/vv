@@ -22,9 +22,10 @@ app.use((req, res, next) => {
     "Content-Security-Policy",
     [
       "default-src 'self';",
-      "script-src 'self' https://cdn.tailwindcss.com;", // ✅ allow Tailwind CDN
-      "style-src 'self' 'unsafe-inline';", // ✅ allow inline styles (needed by Tailwind)
-      "connect-src 'self' https://www.viralvabi.com;", // ✅ keep your existing rule
+      // Add 'https://cdn.jsdelivr.net' to allow SweetAlert2 CDN
+      "script-src 'self' https://cdn.tailwindcss.com https://cdn.jsdelivr.net;",
+      "style-src 'self' 'unsafe-inline';",
+      "connect-src 'self' https://www.viralvabi.com;",
     ].join(" ")
   );
   next();

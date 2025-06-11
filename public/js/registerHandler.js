@@ -1,7 +1,10 @@
 const registrationForm = document.getElementById("registrationForm");
+const submitButton = document.getElementById("submitButton");
 
 registrationForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+  submitButton.innerText = "Registering...";
+  submitButton.disabled = true;
   const email = registrationForm.email.value;
   const name = registrationForm.name.value;
   const password = registrationForm.password.value;
@@ -12,8 +15,10 @@ registrationForm.addEventListener("submit", async (event) => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Passwords do not match.",
+      text: "All fields are required.",
     });
+    submitButton.innerText = "Register";
+    submitButton.disabled = false;
     return;
   }
   if (password !== confirmPassword) {
@@ -22,6 +27,8 @@ registrationForm.addEventListener("submit", async (event) => {
       title: "Oops...",
       text: "Passwords do not match.",
     });
+    submitButton.innerText = "Register";
+    submitButton.disabled = false;
     return;
   }
   try {
@@ -36,15 +43,20 @@ registrationForm.addEventListener("submit", async (event) => {
 
     const data = await response.json();
     if (data.success) {
+      submitButton.innerText = "Register";
+      submitButton.disabled = false;
+      email.value = "";
+      name.value = "";
+      password.value = "";
+      confirmPassword.value = "";
       Swal.fire({
         icon: "success",
         title: "Yay!",
         text: "We have sent you a verification email. Please check your inbox.",
       });
-
-      //   window.location.href = "/web";
     } else {
-      console.log(data);
+      submitButton.innerText = "Register";
+      submitButton.disabled = false;
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -54,6 +66,8 @@ registrationForm.addEventListener("submit", async (event) => {
   } catch (error) {
     // console.error("Registration error:", error);
     // alert("An error occurred. Please try again.");
+    submitButton.innerText = "Register";
+    submitButton.disabled = false;
     Swal.fire({
       icon: "error",
       title: "Oops...",

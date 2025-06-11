@@ -5,6 +5,12 @@ registrationForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   submitButton.innerText = "Registering...";
   submitButton.disabled = true;
+
+  const emailField = registrationForm.email;
+  const nameField = registrationForm.name;
+  const passwordField = registrationForm.password;
+  const confirmPasswordField = registrationForm.confirmPassword;
+
   const email = registrationForm.email.value;
   const name = registrationForm.name.value;
   const password = registrationForm.password.value;
@@ -45,10 +51,12 @@ registrationForm.addEventListener("submit", async (event) => {
     if (data.success) {
       submitButton.innerText = "Register";
       submitButton.disabled = false;
-      email.value = "";
-      name.value = "";
-      password.value = "";
-      confirmPassword.value = "";
+
+      emailField.value = "";
+      nameField.value = "";
+      passwordField.value = "";
+      confirmPasswordField.value = "";
+
       Swal.fire({
         icon: "success",
         title: "Yay!",

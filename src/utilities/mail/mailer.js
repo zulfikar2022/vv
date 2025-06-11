@@ -20,8 +20,6 @@ export async function sendVerificationEmail(userEmail, userId) {
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log("Verification email sent:", info.messageId);
-    console.log(mailOptions);
   } catch (error) {
     console.error("Error sending email:", error);
   }

@@ -1,7 +1,11 @@
 const loginForm = document.getElementById("loginForm");
+const loginButton = document.getElementById("loginButton");
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // Prevent page reload
+
+  loginButton.innerText = "Logging in...";
+  loginButton.disabled = true;
 
   const email = loginForm.email.value;
   const password = loginForm.password.value;
@@ -9,6 +13,8 @@ loginForm.addEventListener("submit", async (event) => {
   // Optional: Basic validation
   if (!email || !password) {
     alert("Please fill in both fields.");
+    loginButton.innerText = "Login";
+    loginButton.disabled = false;
     return;
   }
 
@@ -34,6 +40,8 @@ loginForm.addEventListener("submit", async (event) => {
     //   alert(data.message || "Login failed.");
     // }
   } catch (error) {
+    loginButton.innerText = "Login";
+    loginButton.disabled = false;
     console.error("Login error:", error);
     alert("An error occurred. Please try again.");
   }

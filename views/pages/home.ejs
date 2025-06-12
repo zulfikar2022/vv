@@ -1,12 +1,14 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ViralVabi | <%= title  %> </title>
+    <title>ViralVabi | <%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
-   <script defer src="/js/menu-toggler.js"></script>
+    <script src="/js/menu-toggler.js"></script>
   </head>
-  <body class="bg-gray-100">
+  <body class="bg-gray-100 flex flex-col min-h-screen font-inter">
+    <!-- Navigation Bar -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
@@ -17,14 +19,25 @@
 
           <!-- Desktop Nav -->
           <ul class="hidden md:flex space-x-6 text-gray-700 font-medium">
-            <li><a href="/web" class="hover:text-indigo-600 underline">Home</a></li>
+            <li>
+              <a href="/web" class="hover:text-indigo-600 underline">Home</a>
+            </li>
             <% if (!user) { %>
-             <li><a href="/web/login" class="hover:text-indigo-600">Login</a></li>
-            <li><a href="/web/register" class="hover:text-indigo-600">Register</a></li>
-            <% } %>
-            <% if (user) { %>
-             <li><a href="/web/dashboard" class="hover:text-indigo-600">Dashboard</a></li>
-            <li><a href="/web/profile" class="hover:text-indigo-600">Profile</a></li>
+            <li>
+              <a href="/web/login" class="hover:text-indigo-600">Login</a>
+            </li>
+            <li>
+              <a href="/web/register" class="hover:text-indigo-600">Register</a>
+            </li>
+            <% } %> <% if (user) { %>
+            <li>
+              <a href="/web/dashboard" class="hover:text-indigo-600"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="/web/profile" class="hover:text-indigo-600">Profile</a>
+            </li>
             <% } %>
           </ul>
 
@@ -55,30 +68,39 @@
       <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
         <ul class="space-y-2 text-gray-700 font-medium">
           <li>
-            <a href="/web" class="block py-2 px-3 hover:bg-indigo-50 rounded underline"
+            <a
+              href="/web"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded underline"
               >Home</a
             >
           </li>
           <% if (!user) { %>
-           <li>
-            <a href="/web/login" class="block py-2 px-3 hover:bg-indigo-50 rounded"
+          <li>
+            <a
+              href="/web/login"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded"
               >Login</a
             >
           </li>
           <li>
-            <a href="/web/register" class="block py-2 px-3 hover:bg-indigo-50 rounded"
+            <a
+              href="/web/register"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded"
               >Register</a
             >
           </li>
-          <% } %>
-          <% if (user) { %>
-           <li>
-            <a href="/web/dashboard" class="block py-2 px-3 hover:bg-indigo-50 rounded"
+          <% } %> <% if (user) { %>
+          <li>
+            <a
+              href="/web/dashboard"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded"
               >Dashboard</a
             >
           </li>
           <li>
-            <a href="/web/profile" class="block py-2 px-3 hover:bg-indigo-50 rounded"
+            <a
+              href="/web/profile"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded"
               >Profile</a
             >
           </li>
@@ -87,20 +109,56 @@
       </div>
     </nav>
 
-    <div class="w-[80%] md:w-[90%] mx-auto h-[100%]">
-      <div class="row">
-        <div class="col-md-12">
-          <h1>Welcome to the Home Page</h1>
-          <p>This is a simple home page template using EJS.</p>
-        </div>
-      </div>
-    </div>
+    <!-- Main Content Area -->
+    <main class="flex-grow w-[80%] md:w-[90%] mx-auto py-8">
+      <div
+        class="bg-white p-8 rounded-2xl shadow-lg text-center max-w-4xl mx-auto"
+      >
+        <!-- Content Styling -->
+        <h1
+          class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight"
+        >
+          This is a url shortener service.
+        </h1>
+        <h2 class="text-2xl md:text-3xl font-semibold text-indigo-600 mb-2">
+          No expiry of your short url.
+        </h2>
+        <h3 class="text-xl md:text-2xl font-medium text-gray-700 mb-6">
+          Generate once, use lifetime.
+        </h3>
+        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          You can shorten your long URLs and share them easily.
+        </p>
 
+        <p class="text-lg font-semibold text-gray-800 mb-4">
+          Steps to use this service.
+        </p>
+        <ul
+          class="list-disc list-inside text-left text-base text-gray-700 space-y-2 max-w-md mx-auto"
+        >
+          <li>First create an account using your valid email address</li>
+          <li>
+            we will send a verification link to your email and there will be a
+            link. Click the link to verify your account
+          </li>
+          <li>After verifying your account, you can login to your account</li>
+          <li>After login, go to dashboard.</li>
+          <li>
+            You will see a form there. Put your actual url there and press the
+            "Generate Short URL" Button
+          </li>
+          <li>You will see your short url</li>
+        </ul>
+      </div>
+    </main>
+
+    <!-- Footer -->
     <footer class="text-center py-4 bg-gray-200 mt-8">
       <div class="text-gray-700">
         <p>&copy; 2023 Your Company Name. All rights reserved.</p>
-      <div>Owned by Nur Hossain</div>
-      <div>Developed by Sayed Zulfikar Mahmud</div>
+        <div>Owned by Nur Hossain</div>
+        <div>Developed by Sayed Zulfikar Mahmud</div>
+      </div>
     </footer>
   </body>
 </html>

@@ -2,6 +2,9 @@ const copyButtons = document.querySelectorAll(".copyButton");
 const deleteButtons = document.querySelectorAll(".btnDelete");
 const userId = document.getElementById("userId").value;
 const urlForm = document.getElementById("urlForm");
+const generateShortUrlButton = document.getElementById(
+  "generateShortUrlButton"
+);
 
 copyButtons.forEach((copyButton) => {
   copyButton.addEventListener("click", (event) => {
@@ -67,6 +70,8 @@ deleteButtons.forEach((deleteButton) => {
 
 urlForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  generateShortUrlButton.disabled = true;
+  generateShortUrlButton.textContent = "Generating...";
   const urlField = document.getElementById("url");
   const url = urlField.value.trim();
   if (!url) {
@@ -75,6 +80,8 @@ urlForm.addEventListener("submit", (event) => {
       title: "Error",
       text: "Please enter a URL.",
     });
+    generateShortUrlButton.disabled = false;
+    generateShortUrlButton.textContent = "Generate Short URL";
     return;
   }
   try {
@@ -91,6 +98,8 @@ urlForm.addEventListener("submit", (event) => {
       .then((res) => res.json())
       .then((data) => {
         if (!data.success) {
+          generateShortUrlButton.disabled = false;
+          generateShortUrlButton.textContent = "Generate Short URL";
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -101,6 +110,8 @@ urlForm.addEventListener("submit", (event) => {
         }
       })
       .catch((error) => {
+        generateShortUrlButton.disabled = false;
+        generateShortUrlButton.textContent = "Generate Short URL";
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -108,6 +119,8 @@ urlForm.addEventListener("submit", (event) => {
         });
       });
   } catch (error) {
+    generateShortUrlButton.disabled = false;
+    generateShortUrlButton.textContent = "Generate Short URL";
     Swal.fire({
       icon: "error",
       title: "Error",

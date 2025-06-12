@@ -114,7 +114,7 @@ const logoutUser = async (req, res, next) => {
     res.clearCookie("authorization", {
       httpOnly: true,
       secure: environmentVariables.version === "production",
-      sameSite: "strict",
+      sameSite: "lax",
     });
     return sendSuccessResponse(res, 200, "User logged out successfully");
   } catch (error) {

@@ -71,7 +71,6 @@ app.all("/download/:key", async (req, res) => {
 
 // creating a route not found middleware
 app.all("/", (req, res) => {
-  console.log("Redirecting to /web from not found route");
   res.redirect("/web");
 });
 // creating an error handling middleware
@@ -85,7 +84,6 @@ app.use((error, req, res, next) => {
 
 // At the very end of your route definitions
 app.use((req, res) => {
-  const url = req.originalUrl;
   res.render("pages/404");
 });
 export default app;

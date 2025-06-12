@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>ViralVabi | <%= title %></title>
     <!-- Re-added EJS for title -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -123,7 +124,9 @@
         </form>
       </div>
       <div class="flex flex-col w-[70%] mx-auto my-4">
-        <% for( let index = 0; index < urls.length; index++ ) { %>
+        <% if (urls.length === 0) { %>
+        <p class="mx-auto text-2xl">No short link created</p>
+        <% } %> <% for( let index = 0; index < urls.length; index++ ) { %>
         <div
           class="flex flex-col md:flex-row items-center border-2 border-black my-2 px-2 rounded-lg"
         >
@@ -148,7 +151,10 @@
             </p>
           </div>
           <div class="flex flex-col gap-2">
-            <button class="bg-red-500 rounded px-3 py-2 text-white">
+            <button
+              id="deleteButton-<%= urls[index]._id %>"
+              class="bg-red-500 rounded px-3 py-2 text-white btnDelete"
+            >
               Delete
             </button>
             <button class="bg-blue-500 rounded px-3 py-2 text-white">

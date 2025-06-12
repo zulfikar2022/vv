@@ -1,4 +1,6 @@
 const copyButtons = document.querySelectorAll(".copyButton");
+const deleteButtons = document.querySelectorAll(".btnDelete");
+const userId = document.getElementById("userId").value;
 
 copyButtons.forEach((copyButton) => {
   copyButton.addEventListener("click", (event) => {
@@ -19,5 +21,43 @@ copyButtons.forEach((copyButton) => {
       .catch((error) => {
         console.error("Failed to copy text: ", error);
       });
+  });
+});
+
+deleteButtons.forEach((deleteButton) => {
+  deleteButton.addEventListener("click", (event) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const id = event.target.id;
+        const _id = id.split("-")[1];
+        const hitUrl = `http://localhost:4000/api/users/${userId}/urls/${_id}`;
+        console.log(hitUrl);
+        fetch(hitUrl, {
+          method: "DELETE",
+          credentials: "include",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (!data.success) {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: data.message || "Failed to delete URL.",
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
   });
 });

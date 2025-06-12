@@ -1,6 +1,7 @@
 const copyButtons = document.querySelectorAll(".copyButton");
 const deleteButtons = document.querySelectorAll(".btnDelete");
 const userId = document.getElementById("userId").value;
+const urlForm = document.getElementById("urlForm");
 
 copyButtons.forEach((copyButton) => {
   copyButton.addEventListener("click", (event) => {
@@ -52,6 +53,8 @@ deleteButtons.forEach((deleteButton) => {
                 title: "Error",
                 text: data.message || "Failed to delete URL.",
               });
+            } else {
+              window.location.reload();
             }
           })
           .catch((error) => {
@@ -60,4 +63,55 @@ deleteButtons.forEach((deleteButton) => {
       }
     });
   });
+});
+
+urlForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const urlField = document.getElementById("url");
+  const url = urlField.value.trim();
+  if (!url) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Please enter a URL.",
+    });
+    return;
+  }
+  try {
+    const requestUrl = `https://www.viralvabi.com/api/users/${userId}/urls`;
+    console.log(requestUrl);
+    fetch(requestUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ actual_url: url }),
+      credentials: "same-origin",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.success) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "Failed to create URL.",
+          });
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to create URL.",
+        });
+      });
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "An unexpected error occurred.",
+    });
+  }
 });

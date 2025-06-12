@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 
 export const loggedInUsersOnly = async (req, res, next) => {
   const { authorization } = req.cookies;
-  console.log("Authorization header:", authorization);
 
   try {
     if (!authorization) {

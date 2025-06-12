@@ -42,7 +42,7 @@ deleteButtons.forEach((deleteButton) => {
         console.log(hitUrl);
         fetch(hitUrl, {
           method: "DELETE",
-          credentials: "include",
+          credentials: "same-origin",
         })
           .then((response) => response.json())
           .then((data) => {

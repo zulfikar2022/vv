@@ -38,7 +38,7 @@ deleteButtons.forEach((deleteButton) => {
       if (result.isConfirmed) {
         const id = event.target.id;
         const _id = id.split("-")[1];
-        const hitUrl = `http://localhost:4000/api/users/${userId}/urls/${_id}`;
+        const hitUrl = `https://www.viralvabi.com/api/users/${userId}/urls/${_id}`;
         console.log(hitUrl);
         fetch(hitUrl, {
           method: "DELETE",

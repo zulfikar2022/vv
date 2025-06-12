@@ -59,7 +59,7 @@ const dashboardPageController = async (req, res) => {
       res.render("pages/dashboard", {
         title: "Dashboard",
         userId: user._id,
-        urls: urls.data,
+        urls,
       });
     } else {
       res.redirect("/web/login");

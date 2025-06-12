@@ -71,6 +71,7 @@ app.all("/download/:key", async (req, res) => {
 
 // creating a route not found middleware
 app.all("/", (req, res) => {
+  console.log("Redirecting to /web from not found route");
   res.redirect("/web");
 });
 // creating an error handling middleware

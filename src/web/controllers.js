@@ -1,4 +1,5 @@
 import { environmentVariables } from "../environments/environmentAccess.js";
+import { Url } from "../modules/url/url.model.js";
 import { User } from "../modules/user/user.model.js";
 import jwt from "jsonwebtoken";
 
@@ -45,11 +46,25 @@ const profilePageController = (req, res) => {
     title: "Profile",
   });
 };
-const dashboardPageController = (req, res) => {
-  console.log("Dashboard route accessed");
-  res.render("pages/dashboard", {
-    title: "Dashboard",
-  });
+const dashboardPageController = async (req, res) => {
+  const user = req.urlUser;
+
+  try {
+    if (user) {
+      const urls = await Url.find({
+        user_id: user._id,
+      });
+      res.render("pages/dashboard", {
+        title: "Dashboard",
+        userId: user._id,
+        urls,
+      });
+    } else {
+      res.redirect("/web/login");
+    }
+  } catch (error) {
+    res.redirect("/web/login");
+  }
 };
 
 export const webControllers = {

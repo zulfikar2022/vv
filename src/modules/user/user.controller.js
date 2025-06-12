@@ -87,7 +87,7 @@ const loginUser = async (req, res, next) => {
       .cookie("authorization", token, {
         httpOnly: true,
         secure: environmentVariables.version === "production", // send only over HTTPS in prod
-        sameSite: "strict", // restricts CSRF
+        sameSite: "lax", // restricts CSRF
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
       .json({

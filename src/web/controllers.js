@@ -53,11 +53,13 @@ const dashboardPageController = async (req, res) => {
     if (user) {
       const urls = await Url.find({
         user_id: user._id,
+        isDeleted: false,
       });
+
       res.render("pages/dashboard", {
         title: "Dashboard",
         userId: user._id,
-        urls,
+        urls: urls.data,
       });
     } else {
       res.redirect("/web/login");

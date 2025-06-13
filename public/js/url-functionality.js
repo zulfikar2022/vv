@@ -12,14 +12,14 @@ copyButtons.forEach((copyButton) => {
     const key = id.split("-")[1];
     const linkId = `urlToCopy-${key}`;
     const linkSpan = document.getElementById(linkId);
-    const link = linkSpan.textContent;
+    const link = linkSpan.innerText.trim();
     navigator.clipboard
       .writeText(link)
       .then(() => {
         const copyButton = document.getElementById(`key-${key}`);
-        copyButton.textContent = "Copied!";
+        copyButton.innerText = "Copied!";
         setTimeout(() => {
-          copyButton.textContent = "Copy short url";
+          copyButton.innerText = "Copy";
         }, 2000);
       })
       .catch((error) => {
@@ -43,7 +43,6 @@ deleteButtons.forEach((deleteButton) => {
         const id = event.target.id;
         const _id = id.split("-")[1];
         const hitUrl = `https://www.viralvabi.com/api/users/${userId}/urls/${_id}`;
-        console.log(hitUrl);
         fetch(hitUrl, {
           method: "DELETE",
           credentials: "same-origin",

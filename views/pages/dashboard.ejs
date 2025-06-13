@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>ViralVabi | <%= title %></title>
-    <!-- Re-added EJS for title -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Assuming menu-toggler.js is correctly linked and handles mobile menu toggling -->
     <script defer src="/js/menu-toggler.js"></script>
@@ -95,8 +94,7 @@
 
     <!-- Main Content Area -->
     <main class="flex-grow w-[80%] md:w-[90%] mx-auto py-8">
-      <div class="bg-white p-8 rounded-2xl shadow-lg w-full">
-        <!-- 'w-full' ensures it takes full width of parent -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg w-full mb-8">
         <h1 class="text-2xl font-bold mb-6 text-center">Generate Short URL</h1>
         <form id="urlForm" class="space-y-4">
           <div class="mb-4">
@@ -116,14 +114,12 @@
           </div>
 
           <!-- Hidden User ID Field -->
-          <!-- The userId will now be populated by your EJS rendering on the server -->
           <input
             type="hidden"
             id="userId"
             name="userId"
             value="<%= userId %>"
           />
-          <!-- Re-added EJS for userId -->
 
           <button
             type="submit"
@@ -134,42 +130,63 @@
           </button>
         </form>
       </div>
-      <div class="flex flex-col w-[70%] mx-auto my-4">
+
+      <!-- Links Section -->
+      <div class="flex flex-col w-full md:w-[70%] mx-auto py-4 space-y-4">
         <% if (urls.length === 0) { %>
-        <p class="mx-auto text-2xl">No short link created</p>
+        <p class="mx-auto text-xl md:text-2xl font-medium text-gray-500 mt-8">
+          No short links created yet.
+        </p>
         <% } %> <% for( let index = 0; index < urls.length; index++ ) { %>
         <div
-          class="flex flex-col md:flex-row items-center border-2 border-black my-2 px-2 rounded-lg"
+          class="bg-white p-6 rounded-xl shadow-md flex flex-col md:flex-row items-center justify-between gap-4"
         >
-          <div class="my-10 w-[100%] mr-2">
-            <p>
-              <span class="underline">Actual Url:</span> &nbsp;&nbsp;&nbsp;
-              <span class="text-[#313d4b]"><%= urls[index].actual_url %></span>
+          <div class="flex-grow w-full md:w-auto text-left space-y-2">
+            <p class="text-base text-gray-700">
+              <span class="font-bold underline">Original URL:</span>
+              <a
+                href="<%= urls[index].actual_url %>"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-blue-600 hover:underline break-all"
+              >
+                <%= urls[index].actual_url %>
+              </a>
             </p>
-            <br />
-            <p>
-              <span class="underline">Short Url:</span> &nbsp;&nbsp;&nbsp;
+            <p class="text-base text-gray-700">
+              <span class="font-bold underline">Short URL:</span>
               <span
-                id="urlToCopy-<%= urls[index].key  %>"
-                class="text-[#313d4b]"
+                id="urlToCopy-<%= urls[index].key %>"
+                class="text-indigo-600 font-medium break-all"
                 ><%= urls[index].fake_url %></span
               >
-              <span
-                id="key-<%= urls[index].key%>"
-                class="copyButton border p-1 bg-gray-200 rounded mx-3 hover:cursor-pointer"
-                >Copy Short url</span
+              <button
+                type="button"
+                id="key-<%= urls[index].key %>"
+                class="copyButton inline-flex items-center px-3 py-1.5 ml-2 bg-indigo-100 text-indigo-700 text-sm font-medium rounded-full hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
               >
-              <p class="mt-2 ">Total Click: <span class="text-blue-800"><%= urls[index].click_count  %></span> </p>
+                Copy
+              </button>
+            </p>
+            <p class="mt-2 text-gray-700 text-sm">
+              Total Clicks:
+              <span class="text-blue-800 font-bold text-lg"
+                ><%= urls[index].click_count %></span
+              >
             </p>
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-row md:flex-col gap-2 w-full md:w-auto">
             <button
+              type="button"
               id="deleteButton-<%= urls[index]._id %>"
-              class="bg-red-500 rounded px-3 py-2 text-white btnDelete"
+              class="bg-red-500 rounded-lg px-4 py-2 text-white font-semibold hover:bg-red-600 transition btnDelete w-full"
             >
               Delete
             </button>
-            <button class="bg-blue-500 rounded px-3 py-2 text-white">
+            <button
+              type="button"
+              class="bg-blue-500 rounded-lg px-4 py-2 text-white font-semibold hover:bg-blue-600 transition w-full"
+            >
               Update
             </button>
           </div>
@@ -182,12 +199,20 @@
     <footer class="text-center py-4 bg-gray-200 mt-8">
       <div class="text-gray-700">
         <div>
-          <a class="underline" href="https://github.com/NurHossain-nur"
+          <a
+            class="underline"
+            href="https://github.com/NurHossain-nur"
+            target="_blank"
+            rel="noopener noreferrer"
             >Owned by Nur Hossain</a
           >
         </div>
         <div>
-          <a class="underline" href="https://github.com/zulfikar2022"
+          <a
+            class="underline"
+            href="https://github.com/zulfikar2022"
+            target="_blank"
+            rel="noopener noreferrer"
             >Developed by Sayed Zulfikar Mahmud</a
           >
         </div>

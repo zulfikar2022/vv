@@ -2,15 +2,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ViralVabi | <%= title  %> </title>
+    <title>ViralVabi | <%= title %></title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="/js/registration-password-button-toggler.js" ></script>
-  <script defer src="/js/registerHandler.js"></script>
-    
+    <script defer src="/js/registration-password-button-toggler.js"></script>
+    <script defer src="/js/registerHandler.js"></script>
   </head>
   <body class="bg-gray-100">
-  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <!-- Logo -->
@@ -21,8 +20,14 @@
           <!-- Desktop Nav -->
           <ul class="hidden md:flex space-x-6 text-gray-700 font-medium">
             <li><a href="/web" class="hover:text-indigo-600">Home</a></li>
-            <li><a href="/web/login" class="hover:text-indigo-600">Login</a></li>
-            <li><a href="/web/register" class="hover:text-indigo-600 underline">Register</a></li>
+            <li>
+              <a href="/web/login" class="hover:text-indigo-600">Login</a>
+            </li>
+            <li>
+              <a href="/web/register" class="hover:text-indigo-600 underline"
+                >Register</a
+              >
+            </li>
           </ul>
 
           <!-- Mobile Hamburger -->
@@ -57,12 +62,16 @@
             >
           </li>
           <li>
-            <a href="/web/login" class="block py-2 px-3 hover:bg-indigo-50 rounded"
+            <a
+              href="/web/login"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded"
               >Login</a
             >
           </li>
           <li>
-            <a href="/web/register" class="block py-2 px-3 hover:bg-indigo-50 rounded underline"
+            <a
+              href="/web/register"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded underline"
               >Register</a
             >
           </li>
@@ -70,57 +79,111 @@
       </div>
     </nav>
 
-    <main class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm mx-auto mt-10">
-        <h1 class="text-2xl font-bold mb-6 text-center">Register</h1>
-        <form id="registrationForm" class="space-y-4">
-            <div class="mb-4">
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                <input type="text" id="name" name="name" required
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
+    <main
+      class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm mx-auto mt-10"
+    >
+      <h1 class="text-2xl font-bold mb-6 text-center">Register</h1>
+      <form id="registrationForm" class="space-y-4">
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
+            >Name</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" id="email" name="email" required
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
+        <div class="mb-4">
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-            <div class="mb-4 relative">
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input type="password" id="password" name="password" required
-                    class="w-full px-4 py-2 border rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                <button type="button" id="togglePassword"
-                    class="absolute right-3 top-9 text-gray-600 hover:text-gray-800 focus:outline-none">
-                    👁️
-                </button>
-            </div>
+        <div class="mb-4 relative">
+          <label
+            for="password"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            class="w-full px-4 py-2 border rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            id="togglePassword"
+            class="absolute right-3 top-9 text-gray-600 hover:text-gray-800 focus:outline-none"
+          >
+            👁️
+          </button>
+        </div>
 
-            <div class="mb-6 relative">
-                <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required
-                    class="w-full px-4 py-2 border rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                <button type="button" id="toggleConfirmPassword"
-                    class="absolute right-3 top-9 text-gray-600 hover:text-gray-800 focus:outline-none">
-                    👁️
-                </button>
-            </div>
+        <div class="mb-6 relative">
+          <label
+            for="confirmPassword"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Confirm Password</label
+          >
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+            class="w-full px-4 py-2 border rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            id="toggleConfirmPassword"
+            class="absolute right-3 top-9 text-gray-600 hover:text-gray-800 focus:outline-none"
+          >
+            👁️
+          </button>
+        </div>
 
-            <button id="submitButton" type="submit"
-                class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
-                Register
-            </button>
-        </form>
+        <button
+          id="submitButton"
+          type="submit"
+          class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+        >
+          Register
+        </button>
+      </form>
 
-        <p class="text-center text-sm text-gray-600 mt-6">
-            Already have an account? <a href="/web/login" class="text-blue-600 hover:underline">Login</a>.
-        </p>
+      <p class="text-center text-sm text-gray-600 mt-6">
+        Already have an account?
+        <a href="/web/login" class="text-blue-600 hover:underline">Login</a>.
+      </p>
     </main>
 
     <footer class="text-center py-4 bg-gray-200 mt-8">
       <div class="text-gray-700">
-        <p>&copy; 2023 Your Company Name. All rights reserved.</p>
-      <div>Owned by Nur Hossain</div>
-      <div>Developed by Sayed Zulfikar Mahmud</div>
+        <div>
+          <a class="underline" href="https://github.com/NurHossain-nur"
+            >Owned by Nur Hossain</a
+          >
+        </div>
+        <div>
+          <a class="underline" href="https://github.com/zulfikar2022"
+            >Developed by Sayed Zulfikar Mahmud</a
+          >
+        </div>
+      </div>
     </footer>
   </body>
 </html>

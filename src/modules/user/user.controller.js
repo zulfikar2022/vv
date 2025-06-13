@@ -112,13 +112,12 @@ const loginUser = async (req, res, next) => {
 
 const logoutUser = async (req, res, next) => {
   try {
-    res
-      .clearCookie("authorization", {
-        httpOnly: true,
-        secure: environmentVariables.version === "production",
-        sameSite: "lax",
-      })
-      .send({ message: "user Logged out successfully", success: true });
+    res.clearCookie("authorization", {
+      httpOnly: true,
+      secure: environmentVariables.version === "production",
+      sameSite: "lax",
+    });
+    res.redirect("/web");
     // return sendSuccessResponse(res, 200, "User logged out successfully");
     // res.redirect("/web");
   } catch (error) {

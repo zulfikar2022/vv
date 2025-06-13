@@ -31,14 +31,15 @@ loginForm.addEventListener("submit", async (event) => {
     const data = await response.json();
     if (data.success) {
       window.location.href = "/web";
+    } else if (!data.success) {
+      loginButton.innerText = "Login";
+      loginButton.disabled = false;
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: data.message || "Invalid email or password.",
+      });
     }
-
-    // if (response.success) {
-    //   alert("Login successful!");
-    //   // You can redirect or update UI here
-    // } else {
-    //   alert(data.message || "Login failed.");
-    // }
   } catch (error) {
     loginButton.innerText = "Login";
     loginButton.disabled = false;

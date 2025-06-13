@@ -29,6 +29,9 @@
                 >Profile</a
               >
             </li>
+            <li>
+              <a href="/api/logout" class="hover:text-indigo-600">Logout</a>
+            </li>
           </ul>
 
           <!-- Mobile Hamburger -->
@@ -76,18 +79,50 @@
               >Profile</a
             >
           </li>
+          <li>
+            <a
+              href="/api/logout"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded"
+              >Logout</a
+            >
+          </li>
         </ul>
       </div>
     </nav>
 
-    <div class="w-[80%] md:w-[90%] mx-auto h-[100%]">
-      <div class="row">
-        <div class="col-md-12">
-          <h1>Welcome to the Profile Page</h1>
-          <p>This is a simple home page template using EJS.</p>
+    <main
+      class="flex-grow w-[80%] md:w-[90%] mx-auto py-8 flex justify-center items-start"
+    >
+      <div
+        class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md text-center"
+      >
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">User Profile</h1>
+
+        <!-- User Profile Information -->
+        <div class="space-y-4">
+          <div class="p-4 bg-gray-50 rounded-lg">
+            <p class="text-sm font-medium text-gray-600">Full Name:</p>
+            <!-- EJS to display user's name -->
+            <p class="text-xl font-semibold text-indigo-700">
+              <%= user.name %>
+            </p>
+          </div>
+
+          <div class="p-4 bg-gray-50 rounded-lg">
+            <p class="text-sm font-medium text-gray-600">Links Generated:</p>
+            <!-- EJS to display number of links generated -->
+            <p class="text-xl font-semibold text-indigo-700">
+              <%= user. total_url %>
+            </p>
+          </div>
+
+          <p class="text-gray-600 text-sm mt-6">
+            This is your personal profile page. Here you can see a summary of
+            your activity. More features coming soon!
+          </p>
         </div>
       </div>
-    </div>
+    </main>
 
     <footer class="text-center py-4 bg-gray-200 mt-8">
       <div class="text-gray-700">

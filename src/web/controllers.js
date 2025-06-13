@@ -42,8 +42,14 @@ const registerPageController = (req, res) => {
 
 const profilePageController = (req, res) => {
   console.log("Profile route accessed");
+  const user = req.urlUser;
+  if (!user) {
+    res.redirect("/web/login");
+    return;
+  }
   res.render("pages/profile", {
     title: "Profile",
+    user,
   });
 };
 const dashboardPageController = async (req, res) => {

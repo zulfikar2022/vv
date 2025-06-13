@@ -32,6 +32,9 @@
             <li>
               <a href="/web/profile" class="hover:text-indigo-600">Profile</a>
             </li>
+            <li>
+              <a href="/api/logout" class="hover:text-indigo-600">Logout</a>
+            </li>
           </ul>
 
           <!-- Mobile Hamburger -->
@@ -77,6 +80,13 @@
               href="/web/profile"
               class="block py-2 px-3 hover:bg-indigo-50 rounded"
               >Profile</a
+            >
+          </li>
+          <li>
+            <a
+              href="/api/logout"
+              class="block py-2 px-3 hover:bg-indigo-50 rounded"
+              >Logout</a
             >
           </li>
         </ul>
@@ -149,6 +159,7 @@
                 class="copyButton border p-1 bg-gray-200 rounded mx-3 hover:cursor-pointer"
                 >Copy Short url</span
               >
+              <p class="mt-2 ">Total Click: <span class="text-blue-800"><%= urls[index].click_count  %></span> </p>
             </p>
           </div>
           <div class="flex flex-col gap-2">

@@ -116,9 +116,11 @@ const logoutUser = async (req, res, next) => {
       secure: environmentVariables.version === "production",
       sameSite: "lax",
     });
-    return sendSuccessResponse(res, 200, "User logged out successfully");
+    // return sendSuccessResponse(res, 200, "User logged out successfully");
+    res.redirect("/web");
   } catch (error) {
-    sendErrorResponse(res, 500, error?.message || "Internal server error");
+    // sendErrorResponse(res, 500, error?.message || "Internal server error");
+    res.redirect("/web");
     return;
   }
 };

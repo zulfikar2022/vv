@@ -1,3 +1,4 @@
+import { success } from "zod/v4";
 import { environmentVariables } from "../../environments/environmentAccess.js";
 import { sendErrorResponse } from "../../utilities/customErrorResponse.js";
 import { sendSuccessResponse } from "../../utilities/customSuccessResponse.js";
@@ -111,13 +112,15 @@ const loginUser = async (req, res, next) => {
 
 const logoutUser = async (req, res, next) => {
   try {
-    res.clearCookie("authorization", {
-      httpOnly: true,
-      secure: environmentVariables.version === "production",
-      sameSite: "lax",
-    });
+    res
+      .clearCookie("authorization", {
+        httpOnly: true,
+        secure: environmentVariables.version === "production",
+        sameSite: "lax",
+      })
+      .send({ message: "user Logged out successfully", success: true });
     // return sendSuccessResponse(res, 200, "User logged out successfully");
-    res.redirect("/web");
+    // res.redirect("/web");
   } catch (error) {
     // sendErrorResponse(res, 500, error?.message || "Internal server error");
     res.redirect("/web");

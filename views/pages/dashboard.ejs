@@ -9,6 +9,7 @@
     <!-- Assuming menu-toggler.js is correctly linked and handles mobile menu toggling -->
     <script defer src="/js/menu-toggler.js"></script>
     <script defer src="/js/url-functionality.js"></script>
+    <script defer src="/js/logoutHandler.js"></script>
   </head>
   <body class="bg-gray-100 flex flex-col min-h-screen font-inter">
     <!-- Navigation Bar -->
@@ -32,7 +33,12 @@
               <a href="/web/profile" class="hover:text-indigo-600">Profile</a>
             </li>
             <li>
-              <a href="/web/logout" class="hover:text-indigo-600">Logout</a>
+              <p
+                id="logoutButton"
+                class="hover:text-indigo-600 hover:cursor-pointer"
+              >
+                Logout
+              </p>
             </li>
           </ul>
 
@@ -82,11 +88,12 @@
             >
           </li>
           <li>
-            <a
-              href="/web/logout"
+            <p
+              id="logoutButton"
               class="block py-2 px-3 hover:bg-indigo-50 rounded"
-              >Logout</a
             >
+              Logout
+            </p>
           </li>
         </ul>
       </div>

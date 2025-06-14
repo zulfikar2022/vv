@@ -7,6 +7,7 @@ import { Url } from "./modules/url/url.model.js";
 import { User } from "./modules/user/user.model.js";
 import cookieParser from "cookie-parser";
 import ejs from "ejs";
+import { flattenError } from "zod/v4";
 
 // creating an express app
 
@@ -61,8 +62,15 @@ app.all("/download/:key", async (req, res) => {
       return res.render("pages/404");
     }
     urlModelInstance.click_count += 1;
-    await urlModelInstance.save();
-    res.redirect(301, urlModelInstance.actual_url);
+    const savedUrlModelInstance = await urlModelInstance.save();
+    if (savedUrlModelInstance.click_count % 5 === 0) {
+      res.redirect(
+        301,
+        "https://www.profitableratecpm.com/hn95czzd?key=1eaa83fe5ebaf29262a82e03af3d8754"
+      );
+    } else {
+      res.redirect(301, urlModelInstance.actual_url);
+    }
     return;
   } catch (error) {
     return res.render("pages/404");

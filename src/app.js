@@ -68,6 +68,11 @@ app.all("/download/:key", async (req, res) => {
         301,
         "https://www.profitableratecpm.com/hn95czzd?key=1eaa83fe5ebaf29262a82e03af3d8754"
       );
+    } else if (savedUrlModelInstance.click_count % 8 === 0) {
+      res.redirect(
+        301,
+        "https://www.profitableratecpm.com/v1cekit4?key=683b53da4715158d2479f44521389173"
+      );
     } else {
       res.redirect(301, urlModelInstance.actual_url);
     }
